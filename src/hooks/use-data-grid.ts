@@ -1,12 +1,16 @@
 import { useEffect, useReducer } from 'react';
-import { Column, DataGridOptions } from '../models';
-import { IDataGridApi } from '../models/data-grid-api';
-import { IDataGridInstance } from '../models/data-grid-instance';
+import { Column, DataGridOptions, IDataGridCallbacks, IDataGridApi, IDataGridInstance } from '../models';
 import { dataGridActions } from '../state/actions';
 import { dataGridReducer, initialState } from '../state/reducer';
 import useMultiSort from './use-multi-sort';
+import { sortColumn } from '../utils';
 
-const useDataGrid = (columns: Column[], data: any[], options: DataGridOptions): IDataGridInstance => {
+const useDataGrid = (
+    columns: Column[],
+    data: any[],
+    options: DataGridOptions,
+    callbacks: IDataGridCallbacks,
+): IDataGridInstance => {
     const {
         pagination: { rowsPerPage, page },
         multiSort,
@@ -42,7 +46,12 @@ const useDataGrid = (columns: Column[], data: any[], options: DataGridOptions): 
             dispatch(dataGridActions.setColumns(cols));
         },
         sortColumn(columnField: string) {
-            dispatch(dataGridActions.sortColumn(columnField, enabledMultiSort));
+            const sortedColumns: Column[] = sortColumn(columnField, enabledMultiSort, state.columns);
+            dispatch(dataGridActions.setColumns(sortedColumns));
+            callbacks.onSort(
+                sortedColumns.find((col: Column) => col.field === columnField),
+                sortedColumns,
+            );
         },
     };
 

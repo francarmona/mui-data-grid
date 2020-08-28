@@ -28,7 +28,9 @@ const Body: React.FC<BodyProps> = ({ dataGridInstance }: BodyProps) => {
                     >
                         {isMultiSelectable && (
                             <TableCell padding="checkbox">
-                                <Checkbox checked={true} />
+                                <Checkbox
+                                // checked={true}
+                                />
                             </TableCell>
                         )}
 

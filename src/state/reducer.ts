@@ -1,16 +1,5 @@
-import { Column, DataGridSelectionMode } from '../models';
-import { sortColumn } from '../utils';
-import { DataGridActionTypes, SET_COLUMNS, SET_PAGE, SET_ROWS_PER_PAGE, SORT_COLUMN } from './actions';
-
-export interface DataGridState {
-    keyField: string;
-    data: any[];
-    columns: Column[];
-    rowsPerPage: number;
-    page: number;
-    multiSort: boolean;
-    selectionMode: DataGridSelectionMode;
-}
+import { DataGridState } from '../models';
+import { DataGridActionTypes, SET_COLUMNS, SET_PAGE, SET_ROWS_PER_PAGE } from './actions';
 
 export const initialState: DataGridState = {
     keyField: null,
@@ -30,10 +19,6 @@ export const dataGridReducer = (state: DataGridState, action: DataGridActionType
             return { ...state, page: action.payload };
         case SET_COLUMNS:
             return { ...state, columns: action.payload };
-        case SORT_COLUMN: {
-            const { columnField, enabledMultiSort } = action.payload;
-            return { ...state, columns: sortColumn(columnField, enabledMultiSort, state.columns) };
-        }
         default:
             return state;
     }

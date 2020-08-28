@@ -1,4 +1,4 @@
-import { Column } from '.';
+import { Column } from './column';
 
 export interface IDataGridApi {
     setRowsPerPage: (rowsPerPage: number) => void;

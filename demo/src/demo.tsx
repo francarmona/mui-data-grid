@@ -1,9 +1,9 @@
+import { makeStyles } from '@material-ui/core';
 import Container from '@material-ui/core/Container';
 import React from 'react';
 import { DataGrid } from '../../src/components';
-import { Column, ColumnType, ColumnSortDirection, DataGridOptions, DataGridSelectionMode } from '../../src/models';
+import { Column, ColumnSortDirection, ColumnType, DataGridOptions, DataGridSelectionMode } from '../../src/models';
 import { createColumn } from '../../src/utils';
-import { makeStyles } from '@material-ui/core';
 
 const styles = makeStyles({
     wrapper: {
@@ -68,7 +68,15 @@ const Demo: React.FC = () => {
 
     return (
         <Container className={classes.wrapper}>
-            <DataGrid data={data} columns={columns} options={options} />
+            <DataGrid
+                data={data}
+                columns={columns}
+                options={options}
+                onSort={(column: Column, columns: Column[]) => {
+                    console.log('Column sorted', column);
+                    console.log('All columns', columns);
+                }}
+            />
         </Container>
     );
 };

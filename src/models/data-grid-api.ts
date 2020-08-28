@@ -5,4 +5,6 @@ export interface IDataGridApi {
     setPage: (page: number) => void;
     setColumns: (columns: Column[]) => void;
     sortColumn: (columnField: string) => void;
+    selectRow: (row: any) => void;
+    selectAllRows: () => void;
 }

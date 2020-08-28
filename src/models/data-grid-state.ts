@@ -9,4 +9,5 @@ export interface DataGridState {
     page: number;
     multiSort: boolean;
     selectionMode: DataGridSelectionMode;
+    selectedRows: any[];
 }

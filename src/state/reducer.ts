@@ -1,5 +1,5 @@
 import { DataGridState } from '../models';
-import { DataGridActionTypes, SET_COLUMNS, SET_PAGE, SET_ROWS_PER_PAGE } from './actions';
+import { DataGridActionTypes, SET_COLUMNS, SET_PAGE, SET_ROWS_PER_PAGE, SET_SELECTED_ROWS } from './actions';
 
 export const initialState: DataGridState = {
     keyField: null,
@@ -9,6 +9,7 @@ export const initialState: DataGridState = {
     page: -1,
     multiSort: true,
     selectionMode: null,
+    selectedRows: [],
 };
 
 export const dataGridReducer = (state: DataGridState, action: DataGridActionTypes): DataGridState => {
@@ -19,6 +20,8 @@ export const dataGridReducer = (state: DataGridState, action: DataGridActionType
             return { ...state, page: action.payload };
         case SET_COLUMNS:
             return { ...state, columns: action.payload };
+        case SET_SELECTED_ROWS:
+            return { ...state, selectedRows: action.payload };
         default:
             return state;
     }

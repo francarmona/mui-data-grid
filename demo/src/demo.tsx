@@ -30,7 +30,7 @@ const Demo: React.FC = () => {
             sortOrder: 2,
         }),
         createColumn('description', { title: 'Description', type: ColumnType.String, sortable: true }),
-        createColumn('address', { title: 'Address', type: ColumnType.String, sortable: true }),
+        createColumn('address.street', { title: 'Address', type: ColumnType.String, sortable: true }),
         createColumn('dateOfBirth', { title: 'Date of birth', type: ColumnType.Date }),
         createColumn('arrivalTime', { title: 'Arrival time', type: ColumnType.Datetime }),
         createColumn('time', { title: 'Time', type: ColumnType.Time, render: (value: string) => <b>{value}</b> }),
@@ -43,7 +43,7 @@ const Demo: React.FC = () => {
             dateOfBirth: '1988-03-20',
             name: 'Name 1',
             description: 'Description 1',
-            address: 'Address 1',
+            address: { street: 'Address 1' },
             time: '06:12:32',
         },
         {
@@ -52,7 +52,7 @@ const Demo: React.FC = () => {
             dateOfBirth: '1990-08-12',
             name: 'Name 2',
             description: 'Description 2',
-            address: 'Address 2',
+            address: { street: 'Address 2' },
             time: '20:12:32',
         },
         {
@@ -61,7 +61,7 @@ const Demo: React.FC = () => {
             dateOfBirth: '1960-05-27',
             name: 'Name 3',
             description: 'Description 3',
-            address: 'Address 3',
+            address: { street: 'Address 3' },
             time: '11:00:00',
         },
     ];
@@ -73,8 +73,12 @@ const Demo: React.FC = () => {
                 columns={columns}
                 options={options}
                 onSort={(column: Column, columns: Column[]) => {
-                    console.log('Column sorted', column);
-                    console.log('All columns', columns);
+                    console.log('Column sorted: ', column);
+                    console.log('All columns: ', columns);
+                }}
+                onSelectChange={(selectedRows: any[], prevSelectedRows: any[]) => {
+                    console.log('Selected rows: ', selectedRows);
+                    console.log('Prev. selected rows: ', prevSelectedRows);
                 }}
             />
         </Container>

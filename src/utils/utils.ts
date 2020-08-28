@@ -30,3 +30,5 @@ export const renderCell = (column: Column, row: any): any => {
 
     return value;
 };
+
+export const allSelected = (selectedRows: any[], data: any[]): boolean => selectedRows.length === data.length;

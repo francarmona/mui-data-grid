@@ -12,10 +12,14 @@ interface BodyProps {
 }
 
 const Body: React.FC<BodyProps> = ({ dataGridInstance }: BodyProps) => {
-    const { state }: IDataGridInstance = dataGridInstance;
+    const { state, api }: IDataGridInstance = dataGridInstance;
 
     const isSelectable = !!state.selectionMode;
     const isMultiSelectable = state.selectionMode === DataGridSelectionMode.Multiple;
+    const isRowSelected = (row: any): boolean => {
+        const { keyField } = state;
+        return !!state.selectedRows.find((selRow: any) => selRow[keyField] === row[keyField]);
+    };
 
     return (
         <TableBody>
@@ -23,14 +27,14 @@ const Body: React.FC<BodyProps> = ({ dataGridInstance }: BodyProps) => {
                 <Fragment key={`table-row-${row[state.keyField]}`}>
                     <TableRow
                         hover={isSelectable}
-                        onClick={isSelectable ? () => {} : null}
+                        selected={isRowSelected(row)}
+                        aria-checked={isRowSelected(row)}
+                        onClick={isSelectable ? () => api.selectRow(row) : null}
                         key={`table-row-${row[state.keyField]}`}
                     >
                         {isMultiSelectable && (
                             <TableCell padding="checkbox">
-                                <Checkbox
-                                // checked={true}
-                                />
+                                <Checkbox checked={isRowSelected(row)} />
                             </TableCell>
                         )}
 

@@ -3,7 +3,7 @@ import { Column, DataGridOptions, IDataGridCallbacks, IDataGridApi, IDataGridIns
 import { dataGridActions } from '../state/actions';
 import { dataGridReducer, initialState } from '../state/reducer';
 import useMultiSort from './use-multi-sort';
-import { sortColumn } from '../utils';
+import { sortColumn, allSelected } from '../utils';
 
 const useDataGrid = (
     columns: Column[],
@@ -35,6 +35,13 @@ const useDataGrid = (
         dispatch(dataGridActions.setColumns(columns));
     }, [columns]);
 
+    const dispatchSelection = (newSelectedRows: any[], prevSelectedRows: any[]) => {
+        dispatch(dataGridActions.setSelectedRows(newSelectedRows));
+        if (callbacks.onSelectChange) {
+            callbacks.onSelectChange(newSelectedRows, prevSelectedRows);
+        }
+    };
+
     const api: IDataGridApi = {
         setRowsPerPage(rpp: number) {
             dispatch(dataGridActions.setRowsPerPage(rpp));
@@ -48,10 +55,39 @@ const useDataGrid = (
         sortColumn(columnField: string) {
             const sortedColumns: Column[] = sortColumn(columnField, enabledMultiSort, state.columns);
             dispatch(dataGridActions.setColumns(sortedColumns));
-            callbacks.onSort(
-                sortedColumns.find((col: Column) => col.field === columnField),
-                sortedColumns,
-            );
+            if (callbacks.onSort) {
+                callbacks.onSort(
+                    sortedColumns.find((col: Column) => col.field === columnField),
+                    sortedColumns,
+                );
+            }
+        },
+        selectRow(row: any) {
+            // TODO: move to utils method -> handleRowsSelection
+            const prevSelectedRows: any[] = [...state.selectedRows];
+            let newSelectedRows: any[] = [];
+
+            const selectedRow: any = state.selectedRows.find((selRow: any) => row[keyField] === selRow[keyField]);
+
+            if (selectedRow) {
+                newSelectedRows = state.selectedRows.filter(
+                    (selRow: any) => selRow[keyField] !== selectedRow[keyField],
+                );
+            } else {
+                newSelectedRows = [...state.selectedRows, row];
+            }
+
+            dispatchSelection(newSelectedRows, prevSelectedRows);
+        },
+        selectAllRows() {
+            const prevSelectedRows: any[] = [...state.selectedRows];
+            let newSelectedRows: any[] = [];
+
+            if (!allSelected(state.selectedRows, data)) {
+                newSelectedRows = [...data];
+            }
+
+            dispatchSelection(newSelectedRows, prevSelectedRows);
         },
     };
 

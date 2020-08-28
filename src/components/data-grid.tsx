@@ -12,10 +12,10 @@ interface DataGridProps {
     data: any[];
     options?: DataGridOptions;
     onSort?: (column: Column, columns: Column[]) => void;
+    onSelectChange?: (newSelectedRows: any[], prevSelectedRows: any[]) => void;
     // selectedDataRows?: T[];
     // onSelected?: (selected: T[]) => void;
     // onDeselected?: (deselected: T) => void;
-    // onSelectionChange?: (newSelectedRows: T[], prevSelectedRows: T[]) => void;
     // onTableChange?: (action: string, tableState: TableState) => void;
 }
 
@@ -24,10 +24,11 @@ const DataGrid: React.FC<DataGridProps> = ({
     data,
     options = new DataGridOptions(),
     onSort,
+    onSelectChange,
 }: DataGridProps) => {
     // const { columns, data, options = new DataGridOptions() } = props;
 
-    const dataGridInstace: IDataGridInstance = useDataGrid(columns, data, options, { onSort });
+    const dataGridInstace: IDataGridInstance = useDataGrid(columns, data, options, { onSort, onSelectChange });
 
     return (
         <>

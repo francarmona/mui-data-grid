@@ -83,9 +83,9 @@ const Demo: React.FC = () => {
                 data={data}
                 columns={columns}
                 options={options}
-                onSort={(column: Column, columns: Column[]) => {
+                onSort={(column: Column, sortedColumns: Column[]) => {
                     console.log('Column sorted: ', column);
-                    console.log('All columns: ', columns);
+                    console.log('Sorted columns: ', sortedColumns);
                 }}
                 onSelectChange={(selectedRows: any[], prevSelectedRows: any[]) => {
                     console.log('Selected rows: ', selectedRows);

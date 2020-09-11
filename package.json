@@ -11,6 +11,8 @@
         "lint:fix": "eslint ./src/**/*.{ts,tsx} --fix",
         "test": "jest",
         "test-coverage": "jest --collect-coverage",
+        "copy-package": "npx shx cp package.json dist",
+        "prepare-package": "npm run build && npm run copy-package",
         "prettier": "prettier --check src/**/*.ts*",
         "prettier:fix": "prettier --write src/**/*.ts*",
         "codestyle:fix": "npm run lint:fix && npm run prettier:fix"
@@ -99,6 +101,6 @@
         ]
     },
     "parcelCleanPaths": [
-        "dist/*.*"
+        "dist"
     ]
 }

@@ -58,7 +58,7 @@ const useDataGrid = (
             if (callbacks.onSort) {
                 callbacks.onSort(
                     sortedColumns.find((col: Column) => col.field === columnField),
-                    sortedColumns,
+                    sortedColumns.filter((c: Column) => c.sortOrder !== -1),
                 );
             }
         },

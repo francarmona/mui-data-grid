@@ -1,4 +1,3 @@
-import { Column, ColumnType, ColumnSortDirection } from '../../src/models';
 import { reIndexSortOrders } from '../../src/utils/column';
 import { mockColumns } from '../mock';
 

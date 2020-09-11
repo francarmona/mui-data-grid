@@ -7,4 +7,5 @@ export interface IDataGridApi {
     sortColumn: (columnField: string) => void;
     selectRow: (row: any) => void;
     selectAllRows: () => void;
+    expandRow: (rowId: any) => void;
 }

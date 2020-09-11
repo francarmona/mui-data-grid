@@ -1,7 +1,7 @@
 import Checkbox from '@material-ui/core/Checkbox';
 import TableCell from '@material-ui/core/TableCell';
 import React from 'react';
-import { DataGridSelectionMode, IDataGridInstance } from '../models';
+import { IDataGridInstance } from '../models';
 import { allSelected } from '../utils';
 
 interface HeaderCellSelectionProps {
@@ -13,15 +13,13 @@ const HeaderCellSelection: React.FC<HeaderCellSelectionProps> = ({ dataGridInsta
     const { data, selectedRows } = state;
 
     return (
-        state.selectionMode === DataGridSelectionMode.Multiple && (
-            <TableCell padding="checkbox">
-                <Checkbox
-                    indeterminate={selectedRows.length > 0 && selectedRows.length < data.length}
-                    checked={allSelected(selectedRows, data)}
-                    onChange={() => api.selectAllRows()}
-                />
-            </TableCell>
-        )
+        <TableCell padding="checkbox">
+            <Checkbox
+                indeterminate={selectedRows.length > 0 && selectedRows.length < data.length}
+                checked={allSelected(selectedRows, data)}
+                onChange={() => api.selectAllRows()}
+            />
+        </TableCell>
     );
 };
 

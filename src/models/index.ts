@@ -6,3 +6,4 @@ export { default as DataGridOptions } from './data-grid-options';
 export * from './data-grid-pagination';
 export * from './data-grid-selection';
 export * from './data-grid-state';
+export * from './row-detail-component';

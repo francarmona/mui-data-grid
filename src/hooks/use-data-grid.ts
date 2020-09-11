@@ -89,6 +89,15 @@ const useDataGrid = (
 
             dispatchSelection(newSelectedRows, prevSelectedRows);
         },
+        expandRow(rowId: any) {
+            const expandedRow = state.expandedRows.find((rId) => rId === rowId);
+
+            if (expandedRow) {
+                dispatch(dataGridActions.setExpandedRows(state.expandedRows.filter((rId) => rId !== rowId)));
+            } else {
+                dispatch(dataGridActions.setExpandedRows([...state.expandedRows, rowId]));
+            }
+        },
     };
 
     return { state, api };

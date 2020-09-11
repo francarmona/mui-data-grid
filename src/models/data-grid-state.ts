@@ -10,4 +10,5 @@ export interface DataGridState {
     multiSort: boolean;
     selectionMode: DataGridSelectionMode;
     selectedRows: any[];
+    expandedRows: any[];
 }

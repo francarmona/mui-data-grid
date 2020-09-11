@@ -1,8 +1,15 @@
 import { makeStyles } from '@material-ui/core';
 import Container from '@material-ui/core/Container';
-import React from 'react';
+import React, { ReactElement } from 'react';
 import { DataGrid } from '../../src/components';
-import { Column, ColumnSortDirection, ColumnType, DataGridOptions, DataGridSelectionMode } from '../../src/models';
+import {
+    Column,
+    ColumnSortDirection,
+    ColumnType,
+    DataGridOptions,
+    DataGridSelectionMode,
+    IRowDetailComponent,
+} from '../../src/models';
 import { createColumn } from '../../src/utils';
 
 const styles = makeStyles({
@@ -10,6 +17,10 @@ const styles = makeStyles({
         paddingTop: 50,
     },
 });
+
+const RowDetail: React.FC<IRowDetailComponent> = ({ row }: IRowDetailComponent): ReactElement => {
+    return <div>{row.id}</div>;
+};
 
 const Demo: React.FC = () => {
     const classes = styles();
@@ -80,6 +91,7 @@ const Demo: React.FC = () => {
                     console.log('Selected rows: ', selectedRows);
                     console.log('Prev. selected rows: ', prevSelectedRows);
                 }}
+                rowDetailComponent={RowDetail}
             />
         </Container>
     );

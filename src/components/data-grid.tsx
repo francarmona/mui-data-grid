@@ -2,7 +2,7 @@ import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
 import React from 'react';
 import useDataGrid from '../hooks/use-data-grid';
-import { Column, DataGridOptions } from '../models';
+import { Column, DataGridOptions, IRowDetailComponent } from '../models';
 import { IDataGridInstance } from '../models/data-grid-instance';
 import Body from './body';
 import Header from './header';
@@ -11,6 +11,7 @@ interface DataGridProps {
     columns: Column[];
     data: any[];
     options?: DataGridOptions;
+    rowDetailComponent?: React.FC<IRowDetailComponent>;
     onSort?: (column: Column, columns: Column[]) => void;
     onSelectChange?: (newSelectedRows: any[], prevSelectedRows: any[]) => void;
     // selectedDataRows?: T[];
@@ -25,6 +26,7 @@ const DataGrid: React.FC<DataGridProps> = ({
     options = new DataGridOptions(),
     onSort,
     onSelectChange,
+    rowDetailComponent,
 }: DataGridProps) => {
     // const { columns, data, options = new DataGridOptions() } = props;
 
@@ -34,8 +36,8 @@ const DataGrid: React.FC<DataGridProps> = ({
         <>
             <Paper elevation={0}>
                 <Table stickyHeader={options.stickyHeader}>
-                    <Header dataGridInstance={dataGridInstace} />
-                    <Body dataGridInstance={dataGridInstace} />
+                    <Header dataGridInstance={dataGridInstace} rowDetailComponent={rowDetailComponent} />
+                    <Body dataGridInstance={dataGridInstace} rowDetailComponent={rowDetailComponent} />
                 </Table>
                 {/* {isPageable(tableOptions) && (
                     <TablePagination

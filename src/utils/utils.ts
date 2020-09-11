@@ -32,3 +32,5 @@ export const renderCell = (column: Column, row: any): any => {
 };
 
 export const allSelected = (selectedRows: any[], data: any[]): boolean => selectedRows.length === data.length;
+
+export const isRowExpanded = (expandedRows: any[], rowId: any): boolean => expandedRows.includes(rowId);

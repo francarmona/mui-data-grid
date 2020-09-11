@@ -28,8 +28,6 @@ const DataGrid: React.FC<DataGridProps> = ({
     onSelectChange,
     rowDetailComponent,
 }: DataGridProps) => {
-    // const { columns, data, options = new DataGridOptions() } = props;
-
     const dataGridInstace: IDataGridInstance = useDataGrid(columns, data, options, { onSort, onSelectChange });
 
     return (

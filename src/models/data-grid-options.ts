@@ -4,7 +4,14 @@ import { DataGridPagination } from './data-grid-pagination';
 class DataGridOptions {
     public readonly keyField: string = 'id';
 
-    public readonly pagination: DataGridPagination = { rowsPerPage: 10, page: 0, rowsPerPageOptions: [10, 50, 100] };
+    public readonly pagination: boolean = false;
+
+    public readonly paginationOptions: DataGridPagination = {
+        rowsPerPage: 10,
+        page: 0,
+        rowsPerPageOptions: [10, 50, 100],
+        count: 0,
+    };
 
     public readonly selection: DataGridSelection = { mode: null };
 

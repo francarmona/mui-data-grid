@@ -3,10 +3,10 @@ import { makeStyles } from '@material-ui/core/styles';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 import React from 'react';
-import { Column, DataGridSelectionMode, IDataGridInstance, IRowDetailComponent } from '../models';
-import { renderCell } from '../utils';
-import RowDetail from './row-detail';
-import RowDetailCell from './row-detail-cell';
+import { Column, DataGridSelectionMode, IDataGridInstance, IRowDetailComponent } from '../../models';
+import { renderCell } from '../../utils';
+import { RowDetail } from './row-detail';
+import { RowDetailCell } from './row-detail-cell';
 
 interface RowStylesProps {
     isSelectable: boolean;
@@ -31,7 +31,11 @@ interface RowProps {
     rowDetailComponent: React.FC<IRowDetailComponent>;
 }
 
-const Row: React.FC<RowProps> = ({ row, dataGridInstance, rowDetailComponent: RowDetailComponent }: RowProps) => {
+export const Row: React.FC<RowProps> = ({
+    row,
+    dataGridInstance,
+    rowDetailComponent: RowDetailComponent,
+}: RowProps) => {
     const { state, api }: IDataGridInstance = dataGridInstance;
 
     const isSelectable = !!state.selectionMode;
@@ -59,7 +63,9 @@ const Row: React.FC<RowProps> = ({ row, dataGridInstance, rowDetailComponent: Ro
                 )}
 
                 {state.columns.map((column: Column) => (
-                    <TableCell key={`table-cell-${column.field}`}>{renderCell(column, row)}</TableCell>
+                    <TableCell key={`table-cell-${column.field}`} align={column.align}>
+                        {renderCell(column, row)}
+                    </TableCell>
                 ))}
                 {RowDetailComponent && <RowDetailCell row={row} dataGridInstance={dataGridInstance} />}
             </TableRow>
@@ -70,5 +76,3 @@ const Row: React.FC<RowProps> = ({ row, dataGridInstance, rowDetailComponent: Ro
         </>
     );
 };
-
-export default Row;

@@ -1,14 +1,16 @@
 import Checkbox from '@material-ui/core/Checkbox';
 import TableCell from '@material-ui/core/TableCell';
 import React from 'react';
-import { IDataGridInstance } from '../models';
-import { allSelected } from '../utils';
+import { IDataGridInstance } from '../../models';
+import { allSelected } from '../../utils';
 
 interface HeaderCellSelectionProps {
     dataGridInstance: IDataGridInstance;
 }
 
-const HeaderCellSelection: React.FC<HeaderCellSelectionProps> = ({ dataGridInstance }: HeaderCellSelectionProps) => {
+export const HeaderCellSelection: React.FC<HeaderCellSelectionProps> = ({
+    dataGridInstance,
+}: HeaderCellSelectionProps) => {
     const { state, api } = dataGridInstance;
     const { data, selectedRows } = state;
 

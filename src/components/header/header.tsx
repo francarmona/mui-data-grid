@@ -2,17 +2,17 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import React from 'react';
-import { Column, IRowDetailComponent, DataGridSelectionMode } from '../models';
-import { IDataGridInstance } from '../models/data-grid-instance';
-import HeaderCell from './header-cell';
-import HeaderCellSelection from './header-cell-selection';
+import { Column, IRowDetailComponent, DataGridSelectionMode } from '../../models';
+import { IDataGridInstance } from '../../models/data-grid-instance';
+import { HeaderCell } from './header-cell';
+import { HeaderCellSelection } from './header-cell-selection';
 
 interface HeaderProps {
     dataGridInstance: IDataGridInstance;
     rowDetailComponent: React.FC<IRowDetailComponent>;
 }
 
-const Header: React.FC<HeaderProps> = ({ dataGridInstance, rowDetailComponent }: HeaderProps) => {
+export const Header: React.FC<HeaderProps> = ({ dataGridInstance, rowDetailComponent }: HeaderProps) => {
     const { state } = dataGridInstance;
 
     return (
@@ -30,5 +30,3 @@ const Header: React.FC<HeaderProps> = ({ dataGridInstance, rowDetailComponent }:
         </TableHead>
     );
 };
-
-export default Header;

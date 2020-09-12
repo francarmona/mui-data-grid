@@ -2,15 +2,15 @@ import TableCell from '@material-ui/core/TableCell';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
 import Tooltip from '@material-ui/core/Tooltip';
 import React from 'react';
-import { Column, ColumnSortDirection, SortDirection } from '../models';
-import { IDataGridInstance } from '../models/data-grid-instance';
+import { Column, ColumnSortDirection, SortDirection } from '../../models';
+import { IDataGridInstance } from '../../models/data-grid-instance';
 
 interface HeaderCellProps {
     dataGridInstance: IDataGridInstance;
     column: Column;
 }
 
-const HeaderCell: React.FC<HeaderCellProps> = ({ dataGridInstance, column }: HeaderCellProps) => {
+export const HeaderCell: React.FC<HeaderCellProps> = ({ dataGridInstance, column }: HeaderCellProps) => {
     const { title, tooltipText, field } = column;
     const { api } = dataGridInstance;
 
@@ -40,5 +40,3 @@ const HeaderCell: React.FC<HeaderCellProps> = ({ dataGridInstance, column }: Hea
         tableCell
     );
 };
-
-export default HeaderCell;

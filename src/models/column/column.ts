@@ -6,6 +6,7 @@ export interface Column {
     title?: string;
     tooltipText?: string;
     type?: ColumnType;
+    align?: 'inherit' | 'left' | 'center' | 'right' | 'justify';
     sortable?: boolean;
     sortDirection?: ColumnSortDirection;
     sortOrder?: number;

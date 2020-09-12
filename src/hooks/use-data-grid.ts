@@ -3,7 +3,7 @@ import { Column, DataGridOptions, IDataGridCallbacks, IDataGridApi, IDataGridIns
 import { dataGridActions } from '../state/actions';
 import { dataGridReducer, initialState } from '../state/reducer';
 import useMultiSort from './use-multi-sort';
-import { sortColumn, allSelected } from '../utils';
+import { sortColumn, allSelected, getSortedColumns } from '../utils';
 
 const useDataGrid = (
     columns: Column[],
@@ -12,28 +12,46 @@ const useDataGrid = (
     callbacks: IDataGridCallbacks,
 ): IDataGridInstance => {
     const {
-        pagination: { rowsPerPage, page },
+        pagination,
+        paginationOptions: { rowsPerPage, rowsPerPageOptions, page = 0 },
         multiSort,
         selection: { mode: selectionMode },
         keyField,
+        serverSide,
     } = options;
+
+    const count = serverSide ? options.paginationOptions.count || 0 : data.length;
 
     const [state, dispatch] = useReducer(dataGridReducer, {
         ...initialState,
         columns,
         data,
+        pagination,
         rowsPerPage,
+        rowsPerPageOptions,
+        count,
         page,
         multiSort,
         selectionMode,
         keyField,
+        serverSide,
     });
 
     const enabledMultiSort = useMultiSort(multiSort);
 
+    // TODO: move to custom hooks
     useEffect(() => {
         dispatch(dataGridActions.setColumns(columns));
     }, [columns]);
+
+    useEffect(() => {
+        dispatch(dataGridActions.setData(data));
+        dispatch(dataGridActions.setCount(count));
+    }, [data, count]);
+
+    useEffect(() => {
+        dispatch(dataGridActions.setCount(options.paginationOptions.count));
+    }, [options.paginationOptions.count]);
 
     const dispatchSelection = (newSelectedRows: any[], prevSelectedRows: any[]) => {
         dispatch(dataGridActions.setSelectedRows(newSelectedRows));
@@ -58,7 +76,7 @@ const useDataGrid = (
             if (callbacks.onSort) {
                 callbacks.onSort(
                     sortedColumns.find((col: Column) => col.field === columnField),
-                    sortedColumns.filter((c: Column) => c.sortOrder !== -1),
+                    getSortedColumns(sortedColumns),
                 );
             }
         },

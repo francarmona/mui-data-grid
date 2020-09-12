@@ -3,15 +3,15 @@ import TableCell from '@material-ui/core/TableCell';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import React, { MouseEvent } from 'react';
-import { IDataGridInstance } from '../models';
-import { isRowExpanded } from '../utils';
+import { IDataGridInstance } from '../../models';
+import { isRowExpanded } from '../../utils';
 
 interface RowDetailCellProps {
     dataGridInstance: IDataGridInstance;
     row: any;
 }
 
-const RowDetailCell: React.FC<RowDetailCellProps> = ({ row, dataGridInstance }: RowDetailCellProps) => {
+export const RowDetailCell: React.FC<RowDetailCellProps> = ({ row, dataGridInstance }: RowDetailCellProps) => {
     const { state, api }: IDataGridInstance = dataGridInstance;
 
     return (
@@ -32,5 +32,3 @@ const RowDetailCell: React.FC<RowDetailCellProps> = ({ row, dataGridInstance }: 
         </TableCell>
     );
 };
-
-export default RowDetailCell;

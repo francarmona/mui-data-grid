@@ -4,8 +4,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 import React from 'react';
-import { DataGridSelectionMode, IDataGridInstance, IRowDetailComponent } from '../models';
-import { isRowExpanded } from '../utils';
+import { DataGridSelectionMode, IDataGridInstance, IRowDetailComponent } from '../../models';
+import { isRowExpanded } from '../../utils';
 
 const useStyles = makeStyles({
     tableCellDetail: {
@@ -20,7 +20,7 @@ interface RowDetailProps {
     rowDetailComponent: React.FC<IRowDetailComponent>;
 }
 
-const RowDetail: React.FC<RowDetailProps> = ({
+export const RowDetail: React.FC<RowDetailProps> = ({
     row,
     dataGridInstance,
     rowDetailComponent: RowDetailComponent,
@@ -48,5 +48,3 @@ const RowDetail: React.FC<RowDetailProps> = ({
         </TableRow>
     );
 };
-
-export default RowDetail;
